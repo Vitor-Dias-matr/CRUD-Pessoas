@@ -1,0 +1,84 @@
+﻿
+@model IEnumerable<PessoaViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Relatório de Clientes: Modelo 2: Todos os dados do cadastro.</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nome</th>
+            <th>Tipo Pessoa</th>
+            <th>Cpf/Cnpj</th>
+            <th>Cep</th>
+            <th>Endereço</th>
+            <th>Número</th>
+            <th>Complemento</th>
+            <th>Bairro</th>
+            <th>Data Nascimento Fundação</th>
+            <th>Data Cadastro</th>
+            <th>Email</th>
+            <th>Celular</th>
+            <th>SituacaoCadastral </th>
+            <th>Cidade </th>
+            <th>Estado </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var pessoa in Model)
+        {
+            <tr>
+                <td>@pessoa.Id</td>
+                <td>@pessoa.Nome</td>
+                <td>@pessoa.TipoPessoa</td>
+                <td>@pessoa.CpfCnpj</td>
+                <td>@pessoa.Cep</td>
+                <td>@pessoa.Endereco</td>
+                <td>@pessoa.Numero</td>
+                <td>@pessoa.Complemento</td>
+                <td>@pessoa.Bairro</td>
+                <td>@pessoa.DataNascimentoFundacao</td>
+                <td>@pessoa.DataCadastro</td>
+                <td>@pessoa.Email</td>
+                <td>@pessoa.Celular</td>
+                <td>@pessoa.SituacaoCadastral</td>
+                <td>@pessoa.Cidade.Nome</td>
+                <td>@pessoa.Cidade.Estado</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<style>
+    /* CSS para a tabela */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        border-spacing: 0;
+        border: 1px solid #ddd; /* Borda da tabela */
+    }
+
+    /* CSS para o cabeçalho da tabela */
+    th {
+        background-color: #f2f2f2; /* Cor de fundo do cabeçalho */
+        border: 1px solid #ddd; /* Borda das células do cabeçalho */
+        padding: 8px;
+        text-align: left;
+    }
+
+    /* CSS para as células da tabela */
+    td {
+        border: 1px solid #ddd; /* Borda das células */
+        padding: 8px;
+        text-align: left;
+    }
+
+    /* CSS para as células alternadas (linhas ímpares) */
+    tbody tr:nth-child(odd) {
+        background-color: #f9f9f9; /* Cor de fundo das linhas ímpares */
+    }
+</style>

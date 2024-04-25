@@ -1,64 +1,4 @@
-﻿@* ﻿
-@model IEnumerable<PessoaViewModel>
-
-@{
-    ViewData["Title"] = "Index";
-}
-
-<h1>Listagem</h1>
-
-<p>
-    <a asp-action="Create">Cadastrar nova Pessoa</a>
-</p>
-
-<h3>@ViewData["Message"]</h3>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Nome)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cidade)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CpfCnpj)
-            </th>
-            <th>
-                Ações
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Nome)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Email)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Cidade.Nome)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CpfCnpj)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new  { id = item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                </td>
-            </tr>
-        }
-    </tbody>
-</table> *@
-
-
+﻿
 @model IEnumerable<PessoaViewModel>
 
 @{
@@ -110,6 +50,14 @@
 
 <p>
     <a asp-action="Create">Cadastrar nova Pessoa</a>
+</p>
+
+<p>
+    <button id="btnRelatorioModelo1" class="btn btn-primary">Relatório Modelo 1</button>
+</p>
+
+<p>
+    <button id="btnRelatorioModelo2" class="btn btn-primary">Relatório Modelo 2</button>
 </p>
 
 <h3>@ViewData["Message"]</h3>
@@ -195,6 +143,40 @@
                 },
                 error: function (xhr, status, error) {
                     console.error(xhr.responseText); // Trata erros, se necessário
+                }
+            });
+        });
+    });
+
+    $(document).ready(function () {
+        $('#btnRelatorioModelo1').click(function () {
+            // Fazer uma solicitação AJAX para obter o relatório
+            $.ajax({
+                url: '/Relatorio/Index', // Substitua '/Relatorio/Modelo1' pelo URL correto do seu endpoint de relatório
+                type: 'GET',
+                success: function (response) {
+                    // Abra o relatório em uma nova guia do navegador
+                    window.open('/Relatorio/Index'); 
+                },
+                error: function (xhr, status, error) {
+                    console.error(xhr.responseText); // Tratar erros, se necessário
+                }
+            });
+        });
+    });
+
+    $(document).ready(function () {
+        $('#btnRelatorioModelo2').click(function () {
+            // Fazer uma solicitação AJAX para obter o relatório
+            $.ajax({
+                url: '/Relatorio/Modelo2', 
+                type: 'GET',
+                success: function (response) {
+                    // Abra o relatório em uma nova guia do navegador
+                    window.open('/Relatorio/Modelo2');
+                },
+                error: function (xhr, status, error) {
+                    console.error(xhr.responseText); // Tratar erros, se necessário
                 }
             });
         });

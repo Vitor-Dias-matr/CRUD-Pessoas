@@ -88,3 +88,5 @@ E:\Teste Sae Vitor\CadastroPessoas\obj\Debug\net5.0\refint\CadastroPessoas.dll
 E:\Teste Sae Vitor\CadastroPessoas\obj\Debug\net5.0\CadastroPessoas.pdb
 E:\Teste Sae Vitor\CadastroPessoas\obj\Debug\net5.0\CadastroPessoas.genruntimeconfig.cache
 E:\Teste Sae Vitor\CadastroPessoas\obj\Debug\net5.0\ref\CadastroPessoas.dll
+E:\Teste Sae Vitor\CadastroPessoas\obj\Debug\net5.0\Razor\Views\Relatorio\Index.cshtml.g.cs
+E:\Teste Sae Vitor\CadastroPessoas\obj\Debug\net5.0\Razor\Views\Relatorio\Modelo2.cshtml.g.cs
