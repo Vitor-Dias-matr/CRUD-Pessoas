@@ -1,0 +1,53 @@
+﻿﻿
+@model IEnumerable<CidadeViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Listagem</h1>
+
+<p>
+    <a asp-action="Create">Cadastrar Cidade</a>
+</p>
+
+<h3>@ViewData["Message"]</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Estado)
+            </th>
+            <th>
+                Ações
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Estado)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new  { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

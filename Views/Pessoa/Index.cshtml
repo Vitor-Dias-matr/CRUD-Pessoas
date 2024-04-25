@@ -1,0 +1,204 @@
+﻿@* ﻿
+@model IEnumerable<PessoaViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Listagem</h1>
+
+<p>
+    <a asp-action="Create">Cadastrar nova Pessoa</a>
+</p>
+
+<h3>@ViewData["Message"]</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cidade)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CpfCnpj)
+            </th>
+            <th>
+                Ações
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cidade.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CpfCnpj)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new  { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table> *@
+
+
+@model IEnumerable<PessoaViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Listagem</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        @* <form asp-action="Index" method="get"> *@
+        <form id="filtroForm" method="get">
+            <div class="form-group">
+                <label>Tipo:</label>
+                <select name="tipo" class="form-control">
+                    <option value="">Todos</option>
+                    <option value="Físicas">Físicas</option>
+                    <option value="Jurídicas">Jurídicas</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Cidade:</label>
+                <select name="cidadeId" class="form-control">
+                    <option value="">Todas</option>
+                    @foreach (var cidade in ViewBag.Cidades)
+                    {
+                        <option value="@cidade.Value">@cidade.Text</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Estado:</label>
+                <select name="estado" class="form-control">
+                    <option value="">Todos</option>
+                    @foreach (var estado in ViewBag.Estados)
+                    {
+                        <option value="@estado">@estado</option>
+                    }
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Filtrar</button>
+        </form>
+    </div>
+</div>
+
+<hr />
+
+<p>
+    <a asp-action="Create">Cadastrar nova Pessoa</a>
+</p>
+
+<h3>@ViewData["Message"]</h3>
+
+<table class="table" id="tabelaPessoas">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CpfCnpj)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TipoPessoa)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cidade)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cidade.Estado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataCadastro)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Idade)
+            </th>
+            <th>
+                Ações
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Nome</td>
+                <td>@item.CpfCnpj</td>
+                <td>@item.TipoPessoa</td>
+                <td>@item.Cidade.Nome</td>
+                <td>@item.Cidade.Estado</td>
+                <td>@item.DataCadastro</td>
+                <td>@item.Idade</td>
+                <td>
+                    <a href="/Pessoa/Edit/@item.Id">Edit</a> |
+                    <a href="/Pessoa/Details/@item.Id">Details</a> |
+                    <a href="/Pessoa/Delete/@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#filtroForm').submit(function (e) {
+            e.preventDefault(); // Impede o envio do formulário padrão
+
+            var formData = $(this).serialize(); // Serializa os dados do formulário
+            console.log('formData ', formData);
+            $.ajax({
+                url: '/',
+                type: 'GET',
+                data: formData,
+                success: function (response) {
+                    console.log('response ', response);
+
+                    // Extrai apenas as linhas da tabela da resposta
+                    var tableRows = $(response).find('#tabelaPessoas tbody').html();
+
+                    // Limpa o conteúdo da tabela
+                    $('#tabelaPessoas tbody').empty();
+
+                    // Adiciona as linhas extraídas à tabela existente
+                    $('#tabelaPessoas tbody').append(tableRows);
+                },
+                error: function (xhr, status, error) {
+                    console.error(xhr.responseText); // Trata erros, se necessário
+                }
+            });
+        });
+    });
+
+</script>
+

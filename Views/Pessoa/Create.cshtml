@@ -1,0 +1,447 @@
+﻿@using static CadastroPessoas.Models.Enum.Enum;
+﻿
+@model PessoaViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Cadastro Pessoa</h1>
+
+<hr />
+
+@Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+<div id="error-message" class="text-danger"></div>
+
+
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+
+
+            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+            <div id="error-message" class="text-danger"></div>
+
+
+            <div class="form-group" id="cadastrar">
+                <p id="aviso" class="text-danger">Por favor, preencha todos os campos para habilitar o botão de cadastro.</p>
+                <input type="submit" value="Create" class="btn btn-primary" id="btnCadastrar" disabled />
+            </div>
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Nome" class="control-label"></label>
+                <input asp-for="Nome" class="form-control" />
+                <span asp-validation-for="Nome" class="text-danger"></span>
+            </div>
+
+
+            @* <div class="form-group">
+            <label asp-for="TipoPessoa" class="control-label"></label>
+            <input asp-for="TipoPessoa" class="form-control" />
+            <span asp-validation-for="TipoPessoa" class="text-danger"></span>
+            </div> *@
+
+            <div class="form-group">
+                <label asp-for="TipoPessoa" class="control-label"></label>
+                <select asp-for="TipoPessoa" class="form-control" id="tipoPessoa">
+                    <option value="">Selecione o tipo de pessoa</option>
+                    @foreach (var tipo in Enum.GetValues(typeof(TipoPessoaEnum)))
+                    {
+                        <option value="@tipo">@tipo</option>
+                    }
+                </select>
+            </div>
+
+            <div class="form-group" id="campoCpfCnpj" disabled>
+                <label asp-for="CpfCnpj" class="control-label"></label>
+                <input asp-for="CpfCnpj" class="form-control" id="cpfCnpj" />
+                <span asp-validation-for="CpfCnpj" class="text-danger"></span>
+                <span id="cpfCnpjValidation" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Cep" class="control-label"></label>
+                <input asp-for="Cep" class="form-control" />
+                <span asp-validation-for="Cep" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Endereco" class="control-label"></label>
+                <input asp-for="Endereco" class="form-control" />
+                <span asp-validation-for="Endereco" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Numero" class="control-label"></label>
+                <input asp-for="Numero" class="form-control" />
+                <span asp-validation-for="Numero" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Complemento" class="control-label"></label>
+                <input asp-for="Complemento" class="form-control" />
+                <span asp-validation-for="Complemento" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Bairro" class="control-label"></label>
+                <input asp-for="Bairro" class="form-control" />
+                <span asp-validation-for="Bairro" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="DataNascimentoFundacao" class="control-label"></label>
+                <input asp-for="DataNascimentoFundacao" class="form-control" type="date" />
+                <span asp-validation-for="DataNascimentoFundacao" class="text-danger"></span>
+            </div>
+            @*
+            <div class="form-group">
+            <label asp-for="DataCadastro" class="control-label"></label>
+            <input asp-for="DataCadastro" class="form-control" />
+            <span asp-validation-for="DataCadastro" class="text-danger"></span>
+            </div>
+            *@
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" type="email" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Celular" class="control-label"></label>
+                <input asp-for="Celular" class="form-control" />
+                <span asp-validation-for="Celular" class="text-danger"></span>
+            </div>
+
+            @*   <div class="form-group">
+            <label asp-for="SituacaoCadastral" class="control-label"></label>
+            <input asp-for="SituacaoCadastral" class="form-control" />
+            <span asp-validation-for="SituacaoCadastral" class="text-danger"></span>
+            </div> *@
+
+            <div class="form-group">
+                <label asp-for="SituacaoCadastral" class="control-label"></label>
+                <select asp-for="SituacaoCadastral" class="form-control">
+                    <option value="">Selecione a situação cadastral</option>
+                    @foreach (SitCadastral value in Enum.GetValues(typeof(SitCadastral)))
+                    {
+                        <option value="@value">@Enum.GetName(typeof(SitCadastral), value)</option>
+                    }
+                </select>
+                <span asp-validation-for="SituacaoCadastral" class="text-danger"></span>
+            </div>
+
+            @*     <div class="form-group">
+            <label asp-for="CidadeId" class="control-label"></label>
+            <input asp-for="CidadeId" class="form-control" id="CidadeId" />
+            <span asp-validation-for="CidadeId" class="text-danger"></span>
+            </div> *@
+
+            @*    <div class="form-group">
+            <label asp-for="CidadeId" class="control-label"></label>
+            <select asp-for="CidadeId" class="form-control" id="CidadeId" asp-items="ViewBag.Cidades">
+            <option value="">Selecione a cidade</option>
+            </select>
+            <span asp-validation-for="CidadeId" class="text-danger"></span>
+            </div> *@
+
+            <div class="form-group">
+                <label asp-for="Cidade" class="control-label"></label>
+                <select asp-for="CidadeId" class="form-control" id="CidadeId" asp-items="ViewBag.Cidades">
+                    <option value="">Selecione a cidade</option>
+                    @foreach (var cidade in ViewBag.Cidades)
+                    {
+                        <option value="@cidade.Value">@cidade.Text</option>
+                    }
+                </select>
+                <span asp-validation-for="CidadeId" class="text-danger"></span>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Voltar Para Listagem</a>
+</div>
+
+
+@section Scripts {
+
+    <script>
+        // Função para controlar a exibição do campo CpfCnpj
+        // $(document).ready(function () {
+        //     // Esconde o campo CpfCnpj ao carregar a página
+        //     $('#campoCpfCnpj').hide();
+
+        //     $('#tipoPessoa').change(function () {
+        //         var tipoPessoa = $(this).val();
+
+        //         if (tipoPessoa !== '') {
+        //             $('#campoCpfCnpj').show(); // Mostra o campo CpfCnpj quando uma opção for selecionada
+
+        //             // Altera o texto da label conforme a opção selecionada
+        //             if (tipoPessoa === 'CPF') {
+        //                 $('#campoCpfCnpj label').text('CPF');
+        //                 $('#cpfCnpjValidation').text('CPF deve ter 11 números');
+        //             } else if (tipoPessoa === 'CNPJ') {
+        //                 $('#campoCpfCnpj label').text('CNPJ');
+        //                 $('#cpfCnpjValidation').text('CNPJ deve ter 14 números');
+        //             }
+        //         } else {
+        //             $('#campoCpfCnpj').hide(); // Esconde o campo CpfCnpj se nada estiver selecionado
+        //         }
+        //     });
+        // });
+
+
+        // $(document).ready(function () {
+        //     // Esconde o campo CpfCnpj ao carregar a página
+        //     $('#campoCpfCnpj').hide();
+
+        //     $('#tipoPessoa').change(function () {
+        //         var tipoPessoa = $(this).val();
+        //         var cpfCnpj = $('#cpfCnpj').val().replace(/\D/g, ''); // Remove caracteres não numéricos
+
+        //         if (tipoPessoa !== '') {
+        //             $('#campoCpfCnpj').show(); // Mostra o campo CpfCnpj quando uma opção for selecionada
+
+        //             // Altera o texto da label conforme a opção selecionada
+        //             if (tipoPessoa === 'CPF') {
+        //                 $('#campoCpfCnpj label').text('CPF');
+        //                 $('#cpfCnpjValidation').text('CPF deve ter 11 números');
+        //                 if (cpfCnpj.length === 11) {
+        //                     $('#cpfCnpjValidation').text(''); // Remove a mensagem de validação quando a condição for satisfeita
+        //                 }
+        //             } else if (tipoPessoa === 'CNPJ') {
+        //                 $('#campoCpfCnpj label').text('CNPJ');
+        //                 $('#cpfCnpjValidation').text('CNPJ deve ter 14 números');
+        //                 if (cpfCnpj.length === 14) {
+        //                     $('#cpfCnpjValidation').text(''); // Remove a mensagem de validação quando a condição for satisfeita
+        //                 }
+        //             }
+        //         } else {
+        //             $('#campoCpfCnpj').hide(); // Esconde o campo CpfCnpj se nada estiver selecionado
+        //         }
+        //     });
+
+        //     $('#cpfCnpj').on('input', function () {
+        //         var tipoPessoa = $('#tipoPessoa').val();
+        //         var cpfCnpj = $(this).val().replace(/\D/g, ''); // Remove caracteres não numéricos
+
+        //         if (tipoPessoa === 'CPF' && cpfCnpj.length === 11) {
+        //             $('#cpfCnpjValidation').text(''); // Remove a mensagem de validação quando a condição for satisfeita
+        //         } else if (tipoPessoa === 'CNPJ' && cpfCnpj.length === 14) {
+        //             $('#cpfCnpjValidation').text(''); // Remove a mensagem de validação quando a condição for satisfeita
+        //         }
+        //     });
+        // });
+
+        // $(document).ready(function () {
+        //     // Esconde o campo CpfCnpj ao carregar a página
+        //     $('#campoCpfCnpj').hide();
+
+        //     // Desabilita o botão "Create" ao carregar a página
+        //     $('#createButton').prop('disabled', true);
+
+        //     $('#tipoPessoa').change(function () {
+        //         var tipoPessoa = $(this).val();
+        //         var cpfCnpj = $('#cpfCnpj').val().replace(/\D/g, ''); // Remove caracteres não numéricos
+
+        //         if (tipoPessoa !== '') {
+        //             $('#campoCpfCnpj').show(); // Mostra o campo CpfCnpj quando uma opção for selecionada
+
+        //             // Altera o texto da label conforme a opção selecionada
+        //             if (tipoPessoa === 'CPF') {
+        //                 $('#campoCpfCnpj label').text('CPF');
+        //                 $('#cpfCnpjValidation').text('CPF deve ter 11 números');
+        //                 if (cpfCnpj.length === 11) {
+        //                     $('#cpfCnpjValidation').text(''); // Remove a mensagem de validação quando a condição for satisfeita
+        //                     validarBotaoCreate(); // Valida o botão "Create"
+        //                 } else {
+        //                     $('#createButton').prop('disabled', true); // Desabilita o botão "Create" se a condição não for atendida
+        //                 }
+        //             } else if (tipoPessoa === 'CNPJ') {
+        //                 $('#campoCpfCnpj label').text('CNPJ');
+        //                 $('#cpfCnpjValidation').text('CNPJ deve ter 14 números');
+        //                 if (cpfCnpj.length === 14) {
+        //                     $('#cpfCnpjValidation').text(''); // Remove a mensagem de validação quando a condição for satisfeita
+        //                     validarBotaoCreate(); // Valida o botão "Create"
+        //                 } else {
+        //                     $('#createButton').prop('disabled', true); // Desabilita o botão "Create" se a condição não for atendida
+        //                 }
+        //             }
+        //         } else {
+        //             $('#campoCpfCnpj').hide(); // Esconde o campo CpfCnpj se nada estiver selecionado
+        //             $('#createButton').prop('disabled', true); // Desabilita o botão "Create" se nada estiver selecionado
+        //         }
+        //     });
+
+        //     $('#cpfCnpj').on('input', function () {
+        //         var tipoPessoa = $('#tipoPessoa').val();
+        //         var cpfCnpj = $(this).val().replace(/\D/g, ''); // Remove caracteres não numéricos
+
+        //         if (tipoPessoa === 'CPF' && cpfCnpj.length === 11) {
+        //             $('#cpfCnpjValidation').text(''); // Remove a mensagem de validação quando a condição for satisfeita
+        //             validarBotaoCreate(); // Valida o botão "Create"
+        //         } else if (tipoPessoa === 'CNPJ' && cpfCnpj.length === 14) {
+        //             $('#cpfCnpjValidation').text(''); // Remove a mensagem de validação quando a condição for satisfeita
+        //             validarBotaoCreate(); // Valida o botão "Create"
+        //         } else {
+        //             $('#createButton').prop('disabled', true); // Desabilita o botão "Create" se a condição não for atendida
+        //         }
+        //     });
+
+        //     // Função para validar o botão "Create"
+        //     function validarBotaoCreate() {
+        //         var cpfCnpjValidation = $('#cpfCnpjValidation').text();
+        //         if (cpfCnpjValidation === '') {
+        //             $('#createButton').prop('disabled', false); // Habilita o botão "Create" se o campo estiver validado
+        //         } else {
+        //             $('#createButton').prop('disabled', true); // Desabilita o botão "Create" se o campo não estiver validado
+        //         }
+        //     }
+        // });
+
+        $(document).ready(function () {
+            // Esconde o campo CpfCnpj ao carregar a página
+            $('#campoCpfCnpj').hide();
+
+            // Desabilita o botão "Create" ao carregar a página
+            $('#createButton').prop('disabled', true);
+
+            $('#tipoPessoa').change(function () {
+                var tipoPessoa = $(this).val();
+                var cpfCnpj = $('#cpfCnpj').val().replace(/\D/g, ''); // Remove caracteres não numéricos
+
+                if (tipoPessoa !== '') {
+                    $('#campoCpfCnpj').show(); // Mostra o campo CpfCnpj quando uma opção for selecionada
+
+                    // Altera o texto da label conforme a opção selecionada
+                    if (tipoPessoa === 'CPF') {
+                        $('#campoCpfCnpj label').text('CPF');
+                        $('#cpfCnpjValidation').text('CPF deve ter 11 números');
+                    } else if (tipoPessoa === 'CNPJ') {
+                        $('#campoCpfCnpj label').text('CNPJ');
+                        $('#cpfCnpjValidation').text('CNPJ deve ter 14 números');
+                    }
+                } else {
+                    $('#campoCpfCnpj').hide(); // Esconde o campo CpfCnpj se nada estiver selecionado
+                    $('#createButton').prop('disabled', true); // Desabilita o botão "Create" se nada estiver selecionado
+                }
+            });
+
+            $('#cpfCnpj').on('input', function () {
+                var tipoPessoa = $('#tipoPessoa').val();
+                var cpfCnpj = $(this).val().replace(/\D/g, ''); // Remove caracteres não numéricos
+
+                if (tipoPessoa === 'CPF' && cpfCnpj.length === 11) {
+                    $('#cpfCnpjValidation').text(''); // Remove a mensagem de validação quando a condição for satisfeita
+                    validarBotaoCreate(); // Valida o botão "Create"
+                } else if (tipoPessoa === 'CNPJ' && cpfCnpj.length === 14) {
+                    $('#cpfCnpjValidation').text(''); // Remove a mensagem de validação quando a condição for satisfeita
+                    validarBotaoCreate(); // Valida o botão "Create"
+                } else {
+                    $('#createButton').prop('disabled', true); // Desabilita o botão "Create" se a condição não for atendida
+                }
+            });
+
+            // Função para validar o botão "Create"
+            function validarBotaoCreate() {
+                var cpfCnpjValidation = $('#cpfCnpjValidation').text();
+                if (cpfCnpjValidation === '') {
+                    // Verifica se a quantidade de caracteres no CPF/CNPJ é a correta
+                    var cpfCnpj = $('#cpfCnpj').val().replace(/\D/g, ''); // Remove caracteres não numéricos
+                    if (cpfCnpj.length === 11 || cpfCnpj.length === 14) {
+                        $('#createButton').prop('disabled', false); // Habilita o botão "Create" se o campo estiver validado e a quantidade de caracteres for correta
+                    } else {
+                        $('#createButton').prop('disabled', true); // Desabilita o botão "Create" se a quantidade de caracteres não estiver correta
+                    }
+                } else {
+                    $('#createButton').prop('disabled', true); // Desabilita o botão "Create" se o campo não estiver validado
+                }
+            }
+        });
+
+
+
+        $(document).ready(function () {
+            // Função para verificar se todos os campos estão preenchidos
+            function validarCampos() {
+                var camposPreenchidos = true;
+                // Verifica cada campo do formulário
+                $('.form-control').each(function () {
+                    // Se algum campo estiver vazio, define a variável para false
+                    if ($(this).val() === '') {
+                        camposPreenchidos = false;
+                        return false; // Interrompe o loop
+                    }
+                });
+                // Habilita ou desabilita o botão com base no resultado da verificação
+                $('#btnCadastrar').prop('disabled', !camposPreenchidos);
+                // Exibe ou oculta a mensagem de aviso com base no resultado da verificação
+                $('#aviso').toggle(!camposPreenchidos);
+            }
+
+            // Chamada inicial para verificar o estado dos campos
+            validarCampos();
+
+            // Adiciona um evento de input a todos os campos do formulário
+            $('.form-control').on('input', function () {
+                validarCampos(); // Chama a função para verificar o estado dos campos quando algum deles for preenchido
+            });
+        });
+
+        $(document).ready(function () {
+            // Intercepta o evento de envio do formulário
+            $('form').submit(function (event) {
+                // Impede o envio padrão do formulário
+                event.preventDefault();
+
+                // Serializa os dados do formulário
+                var formData = $(this).serialize();
+
+                // Faz a solicitação AJAX para criar a pessoa
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("Create", "Pessoa")',
+                    data: formData,
+                    success: function (response) {
+                        // Verifica se a criação foi bem-sucedida e há um URL de redirecionamento
+                        if (response.success && response.redirectUrl) {
+                            // Redireciona o usuário para o URL especificado
+                            window.location.href = response.redirectUrl;
+                        } else {
+                            console.log('response ', response);
+                            // Se houver algum problema com a resposta do servidor, exibe uma mensagem de erro genérica
+                            $('#error-message').text(response.error);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        Debugger;
+                        // Manipula erros de solicitação
+                        console.log('xhr.responseText ', xhr.responseText); // Exibe a resposta de erro do servidor no console
+                        console.log('xhr.responseJSON ', xhr.responseJSON);
+                        console.log('error ', error);
+                        // Verifica se a resposta é um objeto JSON e se contém uma propriedade 'error'
+                        if (xhr.responseJSON && xhr.responseJSON.error) {
+                            // Exibe a mensagem de erro específica na tela
+                            $('#error-message').text(xhr.responseJSON.error);
+                        } else {
+                            // Se não houver mensagem de erro específica, exibe uma mensagem genérica
+                            $('#error-message').text('Erro ao criar pessoa. Por favor, tente novamente.');
+                        }
+                    }
+                });
+            });
+        });
+
+
+
+    </script>
+}
