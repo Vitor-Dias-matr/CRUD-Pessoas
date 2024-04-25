@@ -57,12 +57,20 @@
                 </select>
             </div>
 
-            <div class="form-group" id="campoCpfCnpj" disabled>
+            @*    <div class="form-group" id="campoCpfCnpj" disabled>
+            <label asp-for="CpfCnpj" class="control-label"></label>
+            <input asp-for="CpfCnpj" class="form-control" id="cpfCnpj" />
+            <span asp-validation-for="CpfCnpj" class="text-danger"></span>
+            <span id="cpfCnpjValidation" class="text-danger"></span>
+            </div> *@
+
+            <div class="form-group" id="campoCpfCnpj" style="display: none;">
                 <label asp-for="CpfCnpj" class="control-label"></label>
                 <input asp-for="CpfCnpj" class="form-control" id="cpfCnpj" />
                 <span asp-validation-for="CpfCnpj" class="text-danger"></span>
                 <span id="cpfCnpjValidation" class="text-danger"></span>
             </div>
+
 
             <div class="form-group">
                 <label asp-for="Cep" class="control-label"></label>
@@ -174,200 +182,67 @@
 @section Scripts {
 
     <script>
-        // Função para controlar a exibição do campo CpfCnpj
-        // $(document).ready(function () {
-        //     // Esconde o campo CpfCnpj ao carregar a página
-        //     $('#campoCpfCnpj').hide();
 
-        //     $('#tipoPessoa').change(function () {
-        //         var tipoPessoa = $(this).val();
+        // Função para verificar se o CPF ou CNPJ está no formato correto
+        function validarCpfCnpj() {
+            var tipoPessoa = document.getElementById("tipoPessoa").value;
+            var cpfCnpj = document.getElementById("cpfCnpj").value.replace(/[^\d]/g, ''); // Remover caracteres não numéricos
+            var cpfCnpjValidation = document.getElementById("cpfCnpjValidation");
 
-        //         if (tipoPessoa !== '') {
-        //             $('#campoCpfCnpj').show(); // Mostra o campo CpfCnpj quando uma opção for selecionada
-
-        //             // Altera o texto da label conforme a opção selecionada
-        //             if (tipoPessoa === 'CPF') {
-        //                 $('#campoCpfCnpj label').text('CPF');
-        //                 $('#cpfCnpjValidation').text('CPF deve ter 11 números');
-        //             } else if (tipoPessoa === 'CNPJ') {
-        //                 $('#campoCpfCnpj label').text('CNPJ');
-        //                 $('#cpfCnpjValidation').text('CNPJ deve ter 14 números');
-        //             }
-        //         } else {
-        //             $('#campoCpfCnpj').hide(); // Esconde o campo CpfCnpj se nada estiver selecionado
-        //         }
-        //     });
-        // });
+            // var btnCadastrar = document.getElementById("btnCadastrar");
 
 
-        // $(document).ready(function () {
-        //     // Esconde o campo CpfCnpj ao carregar a página
-        //     $('#campoCpfCnpj').hide();
-
-        //     $('#tipoPessoa').change(function () {
-        //         var tipoPessoa = $(this).val();
-        //         var cpfCnpj = $('#cpfCnpj').val().replace(/\D/g, ''); // Remove caracteres não numéricos
-
-        //         if (tipoPessoa !== '') {
-        //             $('#campoCpfCnpj').show(); // Mostra o campo CpfCnpj quando uma opção for selecionada
-
-        //             // Altera o texto da label conforme a opção selecionada
-        //             if (tipoPessoa === 'CPF') {
-        //                 $('#campoCpfCnpj label').text('CPF');
-        //                 $('#cpfCnpjValidation').text('CPF deve ter 11 números');
-        //                 if (cpfCnpj.length === 11) {
-        //                     $('#cpfCnpjValidation').text(''); // Remove a mensagem de validação quando a condição for satisfeita
-        //                 }
-        //             } else if (tipoPessoa === 'CNPJ') {
-        //                 $('#campoCpfCnpj label').text('CNPJ');
-        //                 $('#cpfCnpjValidation').text('CNPJ deve ter 14 números');
-        //                 if (cpfCnpj.length === 14) {
-        //                     $('#cpfCnpjValidation').text(''); // Remove a mensagem de validação quando a condição for satisfeita
-        //                 }
-        //             }
-        //         } else {
-        //             $('#campoCpfCnpj').hide(); // Esconde o campo CpfCnpj se nada estiver selecionado
-        //         }
-        //     });
-
-        //     $('#cpfCnpj').on('input', function () {
-        //         var tipoPessoa = $('#tipoPessoa').val();
-        //         var cpfCnpj = $(this).val().replace(/\D/g, ''); // Remove caracteres não numéricos
-
-        //         if (tipoPessoa === 'CPF' && cpfCnpj.length === 11) {
-        //             $('#cpfCnpjValidation').text(''); // Remove a mensagem de validação quando a condição for satisfeita
-        //         } else if (tipoPessoa === 'CNPJ' && cpfCnpj.length === 14) {
-        //             $('#cpfCnpjValidation').text(''); // Remove a mensagem de validação quando a condição for satisfeita
-        //         }
-        //     });
-        // });
-
-        // $(document).ready(function () {
-        //     // Esconde o campo CpfCnpj ao carregar a página
-        //     $('#campoCpfCnpj').hide();
-
-        //     // Desabilita o botão "Create" ao carregar a página
-        //     $('#createButton').prop('disabled', true);
-
-        //     $('#tipoPessoa').change(function () {
-        //         var tipoPessoa = $(this).val();
-        //         var cpfCnpj = $('#cpfCnpj').val().replace(/\D/g, ''); // Remove caracteres não numéricos
-
-        //         if (tipoPessoa !== '') {
-        //             $('#campoCpfCnpj').show(); // Mostra o campo CpfCnpj quando uma opção for selecionada
-
-        //             // Altera o texto da label conforme a opção selecionada
-        //             if (tipoPessoa === 'CPF') {
-        //                 $('#campoCpfCnpj label').text('CPF');
-        //                 $('#cpfCnpjValidation').text('CPF deve ter 11 números');
-        //                 if (cpfCnpj.length === 11) {
-        //                     $('#cpfCnpjValidation').text(''); // Remove a mensagem de validação quando a condição for satisfeita
-        //                     validarBotaoCreate(); // Valida o botão "Create"
-        //                 } else {
-        //                     $('#createButton').prop('disabled', true); // Desabilita o botão "Create" se a condição não for atendida
-        //                 }
-        //             } else if (tipoPessoa === 'CNPJ') {
-        //                 $('#campoCpfCnpj label').text('CNPJ');
-        //                 $('#cpfCnpjValidation').text('CNPJ deve ter 14 números');
-        //                 if (cpfCnpj.length === 14) {
-        //                     $('#cpfCnpjValidation').text(''); // Remove a mensagem de validação quando a condição for satisfeita
-        //                     validarBotaoCreate(); // Valida o botão "Create"
-        //                 } else {
-        //                     $('#createButton').prop('disabled', true); // Desabilita o botão "Create" se a condição não for atendida
-        //                 }
-        //             }
-        //         } else {
-        //             $('#campoCpfCnpj').hide(); // Esconde o campo CpfCnpj se nada estiver selecionado
-        //             $('#createButton').prop('disabled', true); // Desabilita o botão "Create" se nada estiver selecionado
-        //         }
-        //     });
-
-        //     $('#cpfCnpj').on('input', function () {
-        //         var tipoPessoa = $('#tipoPessoa').val();
-        //         var cpfCnpj = $(this).val().replace(/\D/g, ''); // Remove caracteres não numéricos
-
-        //         if (tipoPessoa === 'CPF' && cpfCnpj.length === 11) {
-        //             $('#cpfCnpjValidation').text(''); // Remove a mensagem de validação quando a condição for satisfeita
-        //             validarBotaoCreate(); // Valida o botão "Create"
-        //         } else if (tipoPessoa === 'CNPJ' && cpfCnpj.length === 14) {
-        //             $('#cpfCnpjValidation').text(''); // Remove a mensagem de validação quando a condição for satisfeita
-        //             validarBotaoCreate(); // Valida o botão "Create"
-        //         } else {
-        //             $('#createButton').prop('disabled', true); // Desabilita o botão "Create" se a condição não for atendida
-        //         }
-        //     });
-
-        //     // Função para validar o botão "Create"
-        //     function validarBotaoCreate() {
-        //         var cpfCnpjValidation = $('#cpfCnpjValidation').text();
-        //         if (cpfCnpjValidation === '') {
-        //             $('#createButton').prop('disabled', false); // Habilita o botão "Create" se o campo estiver validado
-        //         } else {
-        //             $('#createButton').prop('disabled', true); // Desabilita o botão "Create" se o campo não estiver validado
-        //         }
-        //     }
-        // });
-
-        $(document).ready(function () {
-            // Esconde o campo CpfCnpj ao carregar a página
-            $('#campoCpfCnpj').hide();
-
-            // Desabilita o botão "Create" ao carregar a página
-            $('#createButton').prop('disabled', true);
-
-            $('#tipoPessoa').change(function () {
-                var tipoPessoa = $(this).val();
-                var cpfCnpj = $('#cpfCnpj').val().replace(/\D/g, ''); // Remove caracteres não numéricos
-
-                if (tipoPessoa !== '') {
-                    $('#campoCpfCnpj').show(); // Mostra o campo CpfCnpj quando uma opção for selecionada
-
-                    // Altera o texto da label conforme a opção selecionada
-                    if (tipoPessoa === 'CPF') {
-                        $('#campoCpfCnpj label').text('CPF');
-                        $('#cpfCnpjValidation').text('CPF deve ter 11 números');
-                    } else if (tipoPessoa === 'CNPJ') {
-                        $('#campoCpfCnpj label').text('CNPJ');
-                        $('#cpfCnpjValidation').text('CNPJ deve ter 14 números');
-                    }
-                } else {
-                    $('#campoCpfCnpj').hide(); // Esconde o campo CpfCnpj se nada estiver selecionado
-                    $('#createButton').prop('disabled', true); // Desabilita o botão "Create" se nada estiver selecionado
-                }
-            });
-
-            $('#cpfCnpj').on('input', function () {
-                var tipoPessoa = $('#tipoPessoa').val();
-                var cpfCnpj = $(this).val().replace(/\D/g, ''); // Remove caracteres não numéricos
-
-                if (tipoPessoa === 'CPF' && cpfCnpj.length === 11) {
-                    $('#cpfCnpjValidation').text(''); // Remove a mensagem de validação quando a condição for satisfeita
-                    validarBotaoCreate(); // Valida o botão "Create"
-                } else if (tipoPessoa === 'CNPJ' && cpfCnpj.length === 14) {
-                    $('#cpfCnpjValidation').text(''); // Remove a mensagem de validação quando a condição for satisfeita
-                    validarBotaoCreate(); // Valida o botão "Create"
-                } else {
-                    $('#createButton').prop('disabled', true); // Desabilita o botão "Create" se a condição não for atendida
-                }
-            });
-
-            // Função para validar o botão "Create"
-            function validarBotaoCreate() {
-                var cpfCnpjValidation = $('#cpfCnpjValidation').text();
-                if (cpfCnpjValidation === '') {
-                    // Verifica se a quantidade de caracteres no CPF/CNPJ é a correta
-                    var cpfCnpj = $('#cpfCnpj').val().replace(/\D/g, ''); // Remove caracteres não numéricos
-                    if (cpfCnpj.length === 11 || cpfCnpj.length === 14) {
-                        $('#createButton').prop('disabled', false); // Habilita o botão "Create" se o campo estiver validado e a quantidade de caracteres for correta
-                    } else {
-                        $('#createButton').prop('disabled', true); // Desabilita o botão "Create" se a quantidade de caracteres não estiver correta
-                    }
-                } else {
-                    $('#createButton').prop('disabled', true); // Desabilita o botão "Create" se o campo não estiver validado
-                }
+            if (tipoPessoa === 'CPF' && cpfCnpj.length !== 11) {
+                console.log('cpf invalido');
+                document.getElementById("btnCadastrar").disabled = true;
+                cpfCnpjValidation.textContent = 'CPF deve ter 11 números';
+                return false;
+            } else if (tipoPessoa === 'CNPJ' && cpfCnpj.length !== 14) {
+                document.getElementById("btnCadastrar").disabled = true;
+                cpfCnpjValidation.textContent = 'CNPJ deve ter 14 números';
+                return false;
             }
+
+            cpfCnpjValidation.textContent = ''; // Limpar mensagem de validação se estiver correta
+            return true;
+        }
+
+        // Função para habilitar/desabilitar o campo de CPF/CNPJ com base na seleção do tipo de pessoa
+        function habilitarCampoCpfCnpj() {
+            var tipoPessoa = document.getElementById("tipoPessoa").value;
+            var campoCpfCnpj = document.getElementById("campoCpfCnpj");
+
+            if (tipoPessoa === 'CPF' || tipoPessoa === 'CNPJ') {
+                campoCpfCnpj.style.display = 'block';
+                campoCpfCnpj.removeAttribute('disabled');
+            } else {
+                campoCpfCnpj.style.display = 'none';
+                campoCpfCnpj.setAttribute('disabled', 'disabled');
+            }
+        }
+
+        // Adicionar eventos de mudança para o campo tipoPessoa e cpfCnpj
+        document.getElementById("tipoPessoa").addEventListener("change", function () {
+            habilitarCampoCpfCnpj();
+            validarCpfCnpj();
         });
 
+        document.getElementById("cpfCnpj").addEventListener("input", function () {
+            validarCpfCnpj();
+        });
+
+        // Chamar a função de habilitarCampoCpfCnpj inicialmente para definir o estado inicial do campo
+        habilitarCampoCpfCnpj();
+
+        // Adicionar eventos de mudança para o campo tipoPessoa e cpfCnpj
+        document.getElementById("tipoPessoa").addEventListener("change", function () {
+            habilitarCampoCpfCnpj();
+            validarCpfCnpj();
+        });
+
+        document.getElementById("cpfCnpj").addEventListener("input", function () {
+            validarCpfCnpj();
+        });
 
 
         $(document).ready(function () {
@@ -382,8 +257,27 @@
                         return false; // Interrompe o loop
                     }
                 });
+
+                var tipoPessoa = document.getElementById("tipoPessoa").value;
+                var cpfCnpj = document.getElementById("cpfCnpj").value.replace(/[^\d]/g, '');
                 // Habilita ou desabilita o botão com base no resultado da verificação
+                if (tipoPessoa === 'CPF' && cpfCnpj.length !== 11) {
+                    console.log('cpf invalido');
+                    document.getElementById("btnCadastrar").disabled = true;
+                    cpfCnpjValidation.textContent = 'CPF deve ter 11 números';
+                    return false;
+                } else if (tipoPessoa === 'CNPJ' && cpfCnpj.length !== 14) {
+                    document.getElementById("btnCadastrar").disabled = true;
+                    cpfCnpjValidation.textContent = 'CNPJ deve ter 14 números';
+                    return false;
+                }
+                // else if (tipoPessoa === 'CNPJ' && cpfCnpj.length == 14) {
+                //     document.getElementById("btnCadastrar").disabled = false;
+                // } else if (tipoPessoa === 'CPF' && cpfCnpj.length == 11) {
+                //     document.getElementById("btnCadastrar").disabled = false;
+                // }
                 $('#btnCadastrar').prop('disabled', !camposPreenchidos);
+
                 // Exibe ou oculta a mensagem de aviso com base no resultado da verificação
                 $('#aviso').toggle(!camposPreenchidos);
             }
