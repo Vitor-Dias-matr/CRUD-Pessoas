@@ -6,10 +6,13 @@ using CadastroPessoas.Service.Interface;
 using CadastroPessoas.ViewModel;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using RestSharp;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace CadastroPessoas.Service
@@ -94,5 +97,21 @@ namespace CadastroPessoas.Service
 
         }
 
+        public async Task<string> ConsultaEnderecoCEP(string cep)
+        {
+            try
+            {
+                var client = new RestClient($"https://viacep.com.br/ws/{cep}/json");
+
+                var request = new RestRequest();
+                var response = await client.GetAsync(request);
+                var json = response.Content;
+                return json;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

@@ -11,5 +11,6 @@ namespace CadastroPessoas.Service.Interface
         Task UpdateAsync(PessoaViewModel cidadeViewModel);
         Task DeleteAsync(int id);
         Task<PessoaViewModel> GetByIdAsync(int id);
+        Task<string> ConsultaEnderecoCEP(string cep);
     } 
 }

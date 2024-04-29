@@ -90,3 +90,7 @@ E:\Teste Sae Vitor\CadastroPessoas\obj\Debug\net5.0\CadastroPessoas.genruntimeco
 E:\Teste Sae Vitor\CadastroPessoas\obj\Debug\net5.0\ref\CadastroPessoas.dll
 E:\Teste Sae Vitor\CadastroPessoas\obj\Debug\net5.0\Razor\Views\Relatorio\Index.cshtml.g.cs
 E:\Teste Sae Vitor\CadastroPessoas\obj\Debug\net5.0\Razor\Views\Relatorio\Modelo2.cshtml.g.cs
+E:\Teste Sae Vitor\CadastroPessoas\bin\Debug\net5.0\Microsoft.Bcl.AsyncInterfaces.dll
+E:\Teste Sae Vitor\CadastroPessoas\bin\Debug\net5.0\RestSharp.dll
+E:\Teste Sae Vitor\CadastroPessoas\bin\Debug\net5.0\System.Text.Encodings.Web.dll
+E:\Teste Sae Vitor\CadastroPessoas\bin\Debug\net5.0\System.Text.Json.dll

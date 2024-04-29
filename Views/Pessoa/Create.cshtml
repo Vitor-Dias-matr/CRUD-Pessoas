@@ -14,8 +14,6 @@
 
 <div id="error-message" class="text-danger"></div>
 
-
-
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
@@ -40,11 +38,6 @@
             </div>
 
 
-            @* <div class="form-group">
-            <label asp-for="TipoPessoa" class="control-label"></label>
-            <input asp-for="TipoPessoa" class="form-control" />
-            <span asp-validation-for="TipoPessoa" class="text-danger"></span>
-            </div> *@
 
             <div class="form-group">
                 <label asp-for="TipoPessoa" class="control-label"></label>
@@ -57,13 +50,6 @@
                 </select>
             </div>
 
-            @*    <div class="form-group" id="campoCpfCnpj" disabled>
-            <label asp-for="CpfCnpj" class="control-label"></label>
-            <input asp-for="CpfCnpj" class="form-control" id="cpfCnpj" />
-            <span asp-validation-for="CpfCnpj" class="text-danger"></span>
-            <span id="cpfCnpjValidation" class="text-danger"></span>
-            </div> *@
-
             <div class="form-group" id="campoCpfCnpj" style="display: none;">
                 <label asp-for="CpfCnpj" class="control-label"></label>
                 <input asp-for="CpfCnpj" class="form-control" id="cpfCnpj" />
@@ -74,13 +60,13 @@
 
             <div class="form-group">
                 <label asp-for="Cep" class="control-label"></label>
-                <input asp-for="Cep" class="form-control" />
+                <input asp-for="Cep" class="form-control" id="cep" onchange="cep()" />
                 <span asp-validation-for="Cep" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="Endereco" class="control-label"></label>
-                <input asp-for="Endereco" class="form-control" />
+                <input asp-for="Endereco" class="form-control" id="endereco" />
                 <span asp-validation-for="Endereco" class="text-danger"></span>
             </div>
 
@@ -91,15 +77,15 @@
             </div>
 
             <div class="form-group">
-                <label asp-for="Complemento" class="control-label"></label>
-                <input asp-for="Complemento" class="form-control" />
-                <span asp-validation-for="Complemento" class="text-danger"></span>
+                <label asp-for="Bairro" class="control-label"></label>
+                <input asp-for="Bairro" class="form-control" id="bairro" />
+                <span asp-validation-for="Bairro" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="Bairro" class="control-label"></label>
-                <input asp-for="Bairro" class="form-control" />
-                <span asp-validation-for="Bairro" class="text-danger"></span>
+                <label asp-for="Complemento" class="control-label"></label>
+                <input asp-for="Complemento" class="form-control" />
+                <span asp-validation-for="Complemento" class="text-danger"></span>
             </div>
 
             <div class="form-group">
@@ -107,13 +93,7 @@
                 <input asp-for="DataNascimentoFundacao" class="form-control" type="date" />
                 <span asp-validation-for="DataNascimentoFundacao" class="text-danger"></span>
             </div>
-            @*
-            <div class="form-group">
-            <label asp-for="DataCadastro" class="control-label"></label>
-            <input asp-for="DataCadastro" class="form-control" />
-            <span asp-validation-for="DataCadastro" class="text-danger"></span>
-            </div>
-            *@
+
             <div class="form-group">
                 <label asp-for="Email" class="control-label"></label>
                 <input asp-for="Email" class="form-control" type="email" />
@@ -126,12 +106,6 @@
                 <span asp-validation-for="Celular" class="text-danger"></span>
             </div>
 
-            @*   <div class="form-group">
-            <label asp-for="SituacaoCadastral" class="control-label"></label>
-            <input asp-for="SituacaoCadastral" class="form-control" />
-            <span asp-validation-for="SituacaoCadastral" class="text-danger"></span>
-            </div> *@
-
             <div class="form-group">
                 <label asp-for="SituacaoCadastral" class="control-label"></label>
                 <select asp-for="SituacaoCadastral" class="form-control">
@@ -143,20 +117,6 @@
                 </select>
                 <span asp-validation-for="SituacaoCadastral" class="text-danger"></span>
             </div>
-
-            @*     <div class="form-group">
-            <label asp-for="CidadeId" class="control-label"></label>
-            <input asp-for="CidadeId" class="form-control" id="CidadeId" />
-            <span asp-validation-for="CidadeId" class="text-danger"></span>
-            </div> *@
-
-            @*    <div class="form-group">
-            <label asp-for="CidadeId" class="control-label"></label>
-            <select asp-for="CidadeId" class="form-control" id="CidadeId" asp-items="ViewBag.Cidades">
-            <option value="">Selecione a cidade</option>
-            </select>
-            <span asp-validation-for="CidadeId" class="text-danger"></span>
-            </div> *@
 
             <div class="form-group">
                 <label asp-for="Cidade" class="control-label"></label>
@@ -335,7 +295,35 @@
             });
         });
 
+        $(document).ready(function () {
+            $('#cep').on('input', cep);
+        });
 
+        function cep() {
+            // Obtém o elemento de entrada com o id "cep"
+            var inputCEP = document.getElementById('cep');
+
+            var valorCEP = inputCEP.value;
+
+            var dados = {
+                cep: valorCEP // Nome do parâmetro e valor do CEP
+            };
+
+            if (valorCEP.length == 8) {
+                $.ajax({
+                    type: 'GET',
+                    url: '@Url.Action("ConsultaEnderecoCEP","Pessoa")',
+                    data: dados,
+                    success: function (response) {
+                        console.log('response cep ', response);
+                        var endereco = JSON.parse(response);
+
+                        $('#endereco').val(endereco.logradouro);
+                        $('#bairro').val(endereco.bairro);
+                    }
+                })
+            }
+        }
 
     </script>
 }

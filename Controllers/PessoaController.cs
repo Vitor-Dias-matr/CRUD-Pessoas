@@ -155,5 +155,19 @@ namespace CadastroPessoas.Controllers
             var cidade = await _ipessoasService.GetByIdAsync(id);
             return View(cidade);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> ConsultaEnderecoCEP(string cep)
+        {
+            try
+            {
+                var consultaCep = await _ipessoasService.ConsultaEnderecoCEP(cep);
+                return Json(consultaCep);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }
