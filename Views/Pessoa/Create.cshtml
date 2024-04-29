@@ -6,41 +6,37 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Cadastro Pessoa</h1>
+<div class="row">
+    <div class="col-md-6 offset-md-3 text-center">
+        <h1>Cadastro Pessoa</h1>
+    </div>
+</div>
 
 <hr />
 
-@Html.ValidationSummary(false, "", new { @class = "text-danger" })
-
-<div id="error-message" class="text-danger"></div>
-
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-6 offset-md-3">
         <form asp-action="Create">
 
+            @* @Html.ValidationSummary(false, "", new { @class = "text-danger" }) *@
 
-            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
-
-            <div id="error-message" class="text-danger"></div>
+            @* <div id="error-message" class="text-danger"></div> *@
 
 
             <div class="form-group" id="cadastrar">
+            <div class="text-danger mb-3" id="error-message"></div>
                 <p id="aviso" class="text-danger">Por favor, preencha todos os campos para habilitar o botão de cadastro.</p>
-                <input type="submit" value="Create" class="btn btn-primary" id="btnCadastrar" disabled />
+                @* <input type="submit" value="Create" class="btn btn-primary" id="btnCadastrar" disabled /> *@
             </div>
 
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
             <div class="form-group">
-                <label asp-for="Nome" class="control-label"></label>
+                <label asp-for="Nome" class="control-label">Nome</label>
                 <input asp-for="Nome" class="form-control" />
                 <span asp-validation-for="Nome" class="text-danger"></span>
             </div>
 
-
-
             <div class="form-group">
-                <label asp-for="TipoPessoa" class="control-label"></label>
+                <label asp-for="TipoPessoa" class="control-label">Tipo de Pessoa</label>
                 <select asp-for="TipoPessoa" class="form-control" id="tipoPessoa">
                     <option value="">Selecione o tipo de pessoa</option>
                     @foreach (var tipo in Enum.GetValues(typeof(TipoPessoaEnum)))
@@ -51,7 +47,7 @@
             </div>
 
             <div class="form-group" id="campoCpfCnpj" style="display: none;">
-                <label asp-for="CpfCnpj" class="control-label"></label>
+                <label asp-for="CpfCnpj" class="control-label">CPF/CNPJ</label>
                 <input asp-for="CpfCnpj" class="form-control" id="cpfCnpj" />
                 <span asp-validation-for="CpfCnpj" class="text-danger"></span>
                 <span id="cpfCnpjValidation" class="text-danger"></span>
@@ -130,13 +126,12 @@
                 <span asp-validation-for="CidadeId" class="text-danger"></span>
             </div>
 
+            <button type="submit" value="Create" class="btn btn-primary" id="btnCadastrar" disabled>Cadastrar</button>
+            <a asp-action="Index" class="btn btn-secondary">Voltar Para Listagem</a>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Voltar Para Listagem</a>
-</div>
 
 
 @section Scripts {
