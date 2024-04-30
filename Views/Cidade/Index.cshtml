@@ -1,4 +1,4 @@
-﻿﻿
+﻿@* ﻿
 @model IEnumerable<CidadeViewModel>
 
 @{
@@ -50,4 +50,53 @@
             </tr>
         }
     </tbody>
-</table>
+</table> *@
+
+@model IEnumerable<CidadeViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container">
+    <h1 class="mt-4">Listagem de Cidades</h1>
+
+    <p>
+        <a href="@Url.Action("Create")" class="btn btn-success">Cadastrar Cidade</a>
+    </p>
+
+    @if (ViewData["Message"] != null)
+    {
+        <h3>@ViewData["Message"]</h3>
+    }
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Estado</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Nome)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Estado)</td>
+                        <td>
+                            <div class="btn-group" role="group">
+                                <a href="@Url.Action("Edit", new { id = item.Id })" class="btn btn-primary">Editar</a>
+                                <a href="@Url.Action("Details", new { id = item.Id })" class="btn btn-info">Detalhes</a>
+                                <a href="@Url.Action("Delete", new { id = item.Id })" class="btn btn-danger">Excluir</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
