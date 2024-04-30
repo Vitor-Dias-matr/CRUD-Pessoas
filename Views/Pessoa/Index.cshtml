@@ -1,15 +1,14 @@
-﻿
-@model IEnumerable<PessoaViewModel>
+﻿@model IEnumerable<PessoaViewModel>
 
 @{
     ViewData["Title"] = "Index";
 }
-
+@*
 <h1>Listagem</h1>
 
 <div class="row">
     <div class="col-md-6">
-        @* <form asp-action="Index" method="get"> *@
+
         <form id="filtroForm" method="get">
             <div class="form-group">
                 <label>Tipo:</label>
@@ -45,9 +44,9 @@
         </form>
     </div>
 </div>
-
-<hr />
-
+ *@
+@* <hr /> *@
+@*
 <p>
     <a asp-action="Create">Cadastrar nova Pessoa</a>
 </p>
@@ -58,10 +57,10 @@
 
 <p>
     <button id="btnRelatorioModelo2" class="btn btn-primary">Relatório Modelo 2</button>
-</p>
+</p> *@
 
-<h3>@ViewData["Message"]</h3>
-
+@* <h3>@ViewData["Message"]</h3> *@
+@*
 <table class="table" id="tabelaPessoas">
     <thead>
         <tr>
@@ -114,8 +113,101 @@
             </tr>
         }
     </tbody>
-</table>
+</table> *@
 
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <h1>Listagem</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <form id="filtroForm" method="get">
+                <div class="form-group">
+                    <label for="tipo">Tipo:</label>
+                    <select name="tipo" id="tipo" class="form-control">
+                        <option value="">Todos</option>
+                        <option value="Físicas">Físicas</option>
+                        <option value="Jurídicas">Jurídicas</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="cidade">Cidade:</label>
+                    <select name="cidadeId" id="cidade" class="form-control">
+                        <option value="">Todas</option>
+                        @foreach (var cidade in ViewBag.Cidades)
+                        {
+                            <option value="@cidade.Value">@cidade.Text</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="estado">Estado:</label>
+                    <select name="estado" id="estado" class="form-control">
+                        <option value="">Todos</option>
+                        @foreach (var estado in ViewBag.Estados)
+                        {
+                            <option value="@estado">@estado</option>
+                        }
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Filtrar</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <hr />
+
+            <div class="btn-group">
+                <a asp-action="Create" class="btn btn-success mr-2 rounded">Cadastrar nova Pessoa</a>
+                <button id="btnRelatorioModelo1" class="btn btn-primary mr-2 rounded">Relatório Modelo 1</button>
+                <button id="btnRelatorioModelo2" class="btn btn-primary rounded">Relatório Modelo 2</button>
+            </div>
+
+            <h3 class="mt-4">@ViewData["Message"]</h3>
+
+            <div class="table-responsive">
+                <table class="table table-striped" id="tabelaPessoas">
+                    <thead>
+                        <tr>
+                            <!-- Seus cabeçalhos de coluna aqui -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Id</td>
+                                <td>@item.Nome</td>
+                                <td>@item.CpfCnpj</td>
+                                <td>@item.TipoPessoa</td>
+                                <td>@item.Cidade.Nome</td>
+                                <td>@item.Cidade.Estado</td>
+                                <td>@item.DataCadastro</td>
+                                <td>@item.Idade</td>
+                                <td>
+                                    <div class="btn-group" role="group">
+                                        <a href="/Pessoa/Edit/@item.Id" class="btn btn-sm btn-primary">Edit</a>
+                                        <a href="/Pessoa/Details/@item.Id" class="btn btn-sm btn-info">Details</a>
+                                        <a href="/Pessoa/Delete/@item.Id" class="btn btn-sm btn-danger">Delete</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
@@ -156,7 +248,7 @@
                 type: 'GET',
                 success: function (response) {
                     // Abra o relatório em uma nova guia do navegador
-                    window.open('/Relatorio/Index'); 
+                    window.open('/Relatorio/Index');
                 },
                 error: function (xhr, status, error) {
                     console.error(xhr.responseText); // Tratar erros, se necessário
@@ -169,7 +261,7 @@
         $('#btnRelatorioModelo2').click(function () {
             // Fazer uma solicitação AJAX para obter o relatório
             $.ajax({
-                url: '/Relatorio/Modelo2', 
+                url: '/Relatorio/Modelo2',
                 type: 'GET',
                 success: function (response) {
                     // Abra o relatório em uma nova guia do navegador
