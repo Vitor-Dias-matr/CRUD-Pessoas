@@ -178,7 +178,33 @@
                 <table class="table table-striped" id="tabelaPessoas">
                     <thead>
                         <tr>
-                            <!-- Seus cabeçalhos de coluna aqui -->
+                            <th>
+                                @Html.DisplayNameFor(model => model.Id)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Nome)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CpfCnpj)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.TipoPessoa)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Cidade)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Cidade.Estado)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.DataCadastro)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Idade)
+                            </th>
+                            <th>
+                                Ações
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
